@@ -25,7 +25,20 @@
 window.addEventListener("load", setCart);
 
 function setCart() {
-      
+      // Contains the addButtons data collection from the HTML.
+      var addButtons = document.getElementsByClassName("addButtons");
+
+      // Loop through the addButtons collection when the button is clicked.
+      for (var i = 0; i < addButtons.length; i++) {
+            addButtons[i].addEventListener("click", addItem);
+      }
+}
+
+function addItem(e) {
+      var foodItem = e.target.nextElementSibling;
+      var foodID = foodItem.getAttribute("id");
+      var foodDiscription = document.cloneNode(foodID);
+      var cartBox = document.getElementById("cart");
 }
 
 
