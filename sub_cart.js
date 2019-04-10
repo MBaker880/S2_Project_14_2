@@ -25,20 +25,42 @@
 window.addEventListener("load", setCart);
 
 function setCart() {
-      // Contains the addButtons data collection from the HTML.
-      var addButtons = document.getElementsByClassName("addButtons");
+      // Contains the addButtons data collection from the HTML
+      var addButtons = document.getElementsByClassName("addButton");
 
-      // Loop through the addButtons collection when the button is clicked.
+      // Loop through the addButtons collection when the button is clicked
       for (var i = 0; i < addButtons.length; i++) {
-            addButtons[i].addEventListener("click", addItem);
+            addButtons[i].onclick = addItem;
       }
 }
 
 function addItem(e) {
+      // Target the next element sibling
       var foodItem = e.target.nextElementSibling;
+      // Getting the id of foodItem
       var foodID = foodItem.getAttribute("id");
-      var foodDiscription = document.cloneNode(foodID);
+      var foodDescription = foodItem.cloneNode(true);
+      // Getting the id cart of the aside element
       var cartBox = document.getElementById("cart");
+      var duplicateOrder = false;
+
+      for (var n = cartBox.firstChild; n = n.nextElementSibling; n !== null) {
+            if (n.id === foodID) {
+                  duplicateOrder = true;
+                  n.firstElementChild.textContent++;
+                  break;
+            } 
+      }
+
+      // If the duplicate order is false loop
+      if (duplicateOrder === false) {
+            // Create the span element
+            var orderCount = document.createElement("span");
+            // Setting the text content of the orderCount variable to 1
+            orderCount.textContent = "1";
+            foodDescription.insertBefore(orderCount, foodDescription.firstChild);
+            cartBox.appendChild(foodDescription);
+      }
 }
 
 
